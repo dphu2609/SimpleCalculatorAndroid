@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -17,8 +18,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -54,7 +57,8 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Column(
                                 modifier = Modifier
-                                    .fillMaxSize(),
+                                    .fillMaxSize()
+                                    .padding(top = 64.dp),
                                 verticalArrangement = Arrangement.Bottom,
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
@@ -67,6 +71,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 
 @Composable
 fun Calculator(modifier: Modifier = Modifier) {
@@ -88,7 +93,7 @@ fun CalculatorScreen() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(end = 16.dp, bottom = 10.dp),
+            .padding(top = 24.dp, end = 16.dp, bottom = 16.dp),
         contentAlignment = Alignment.CenterEnd
     ) {
         LaunchedEffect(expression) {
@@ -101,7 +106,7 @@ fun CalculatorScreen() {
         }
         Text(
             text = expression,
-            fontSize = 48.sp,
+            fontSize = 56.sp,
             fontWeight = FontWeight.Bold
         )
     }
@@ -111,10 +116,12 @@ fun CalculatorScreen() {
 @Composable
 fun CalculatorKeyboard() {
     val buttons = arrayOf(
-        arrayOf("7", "8", "9", "DEL", "CLR", "="),
-        arrayOf("4", "5", "6", "x", "/", "sin"),
-        arrayOf("1", "2", "3", "+", "-", "cos"),
-        arrayOf("0", ".", "(", ")", "ANS", "tan")
+        arrayOf("(", ")", "DEL", "CLR"),
+        arrayOf("+", "-", "x", "/"),
+        arrayOf("7", "8", "9", "sin"),
+        arrayOf("4", "5", "6", "cos"),
+        arrayOf("1", "2", "3", "tan"),
+        arrayOf("0", ".", "ANS", "=")
     )
 
     Column(
@@ -141,18 +148,18 @@ fun CalculatorButton(text: String, onClick: () -> Unit, modifier: Modifier = Mod
     Box(
         modifier = modifier
             .aspectRatio(1f)
-            .clip(RoundedCornerShape(12.dp))
-            .background(Color(0xFF00796B))
+            .clip(RoundedCornerShape(16.dp))
+            .background(Color(0xFF224CD6))
             .padding(4.dp),
         contentAlignment = Alignment.Center
     ) {
         Button(
             onClick = onClick,
             modifier = Modifier.fillMaxSize(),
-            colors = ButtonDefaults.buttonColors(Color(0xFF00796B)),
+            colors = ButtonDefaults.buttonColors(Color(0xFF224CD6)),
             contentPadding = PaddingValues(0.dp)
         ) {
-            Text(text, color = Color.White)
+            Text(text, color = Color.White, fontSize = 20.sp)
         }
     }
 }
