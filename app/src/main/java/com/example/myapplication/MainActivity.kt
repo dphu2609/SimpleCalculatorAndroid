@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -102,12 +103,16 @@ fun CalculatorScreen() {
                 delay(50) // Adjust the delay as needed
                 // Trigger recomposition
                 expression = CalculatorHandler.getExpression() // This line may look redundant, but it triggers recomposition
+                if (expression.length > 10) {
+                    expression = expression.substring(expression.length - 10, expression.length)
+                }
             }
         }
         Text(
             text = expression,
             fontSize = 56.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            maxLines = 1,
         )
     }
 }

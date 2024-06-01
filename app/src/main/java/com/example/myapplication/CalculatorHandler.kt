@@ -245,6 +245,7 @@ object CalculatorHandler {
     private var expression: String = ""
     private var ans: String = ""
     private val calculatorStack = CalculatorStack()
+    private var isPressCalculateBtn = false
 
     fun getExpression(): String {
         return expression
@@ -288,6 +289,10 @@ object CalculatorHandler {
     }
 
     fun onButtonPressed(button: String) {
+        if (isPressCalculateBtn) {
+            expression = ""
+            isPressCalculateBtn = false
+        }
         when (button) {
             "CLR" -> {
                 expression = ""
@@ -295,6 +300,14 @@ object CalculatorHandler {
             "DEL" -> {
                 if (expression.isNotEmpty()) {
                     expression = expression.substring(0, expression.length - 1)
+                    if (expression.length >= 3) {
+                        if (expression.substring(expression.length - 3) == "sin" || expression.substring(
+                                expression.length - 3
+                            ) == "cos" || expression.substring(expression.length - 3) == "tan"
+                        ) {
+                            expression = expression.substring(0, expression.length - 3)
+                        }
+                    }
                 }
             }
             "sin", "cos", "tan" -> {
@@ -327,6 +340,7 @@ object CalculatorHandler {
                     expression = expression.substring(0, 10)
                 }
                 ans = expression
+                isPressCalculateBtn = true
             }
             else -> {
                 expression += button
